@@ -24,7 +24,7 @@ templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
 # Configure Gemini API
 try:
-    genai.configure(api_key="AIzaSyB3bz0Z6X2dXeaHwIpk5xlWBN8CB_-AcNM")
+    genai.configure(api_key="enter yout gemini api key")
     model = genai.GenerativeModel("gemini-1.5-flash")
     logger.info("✅ Gemini API initialized successfully.")
 except Exception as e:
