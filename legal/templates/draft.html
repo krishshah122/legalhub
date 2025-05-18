@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Document Drafting - Legal Agents Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}" />
+</head>
+<body class="bg-gradient-to-br from-purple-600 via-pink-500 to-yellow-400 text-white overflow-x-hidden">
+
+  <header class="p-6 flex justify-between items-center">
+    <h1 class="text-3xl font-bold">🧠 Legal Agents Hub</h1>
+    <nav>
+      <ul class="flex gap-6 text-lg font-medium">
+        <li><a href="/" class="hover:underline">Home</a></li>
+        <li><a href="/#agents" class="hover:underline">Agents</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="mt-20 px-6 max-w-3xl mx-auto text-center bg-white/20 backdrop-blur-xl p-8 rounded-3xl shadow-lg text-purple-900">
+    <h2 class="text-3xl font-semibold mb-4">Generate Legal Draft</h2>
+    <textarea id="prompt" rows="6" placeholder="Enter your legal prompt here..." class="w-full p-4 rounded-md mb-4"></textarea>
+    <button onclick="generateDraft()" class="bg-purple-600 text-white px-6 py-3 rounded-full font-bold shadow-lg hover:scale-105 transform transition">Generate</button>
+
+    <h3 class="mt-8 text-xl font-semibold">Generated Draft:</h3>
+    <pre id="result" class="mt-2 p-4 bg-white rounded-md text-left whitespace-pre-wrap max-h-96 overflow-auto"></pre>
+
+    <div id="actions" class="mt-6 flex justify-center gap-4" style="display:none;">
+      <button id="downloadBtn" class="bg-green-600 px-5 py-2 rounded-md shadow-md hover:bg-green-700 transition font-semibold">Download</button>
+      <a id="emailShare" href="#" target="_blank" class="bg-blue-600 px-5 py-2 rounded-md shadow-md hover:bg-blue-700 transition font-semibold">Share via Gmail</a>
+      <a id="whatsappShare" href="#" target="_blank" class="bg-green-500 px-5 py-2 rounded-md shadow-md hover:bg-green-600 transition font-semibold">Share on WhatsApp</a>
+    </div>
+  </section>
+
+  <footer class="mt-20 p-6 text-center text-white/80">
+    &copy; 2025 Legal Agents Hub. All rights reserved.
+  </footer>
+
+  <script>
+    async function generateDraft() {
+      const prompt = document.getElementById('prompt').value;
+      if (!prompt.trim()) {
+        alert('Please enter a prompt.');
+        return;
+      }
+
+      try {
+        const response = await fetch('/draft', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ prompt: prompt })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to generate draft');
+        }
+
+        const data = await response.json();
+        const draftText = data.draft;
+
+        // Show generated draft
+        const resultElem = document.getElementById('result');
+        resultElem.innerText = draftText;
+
+        // Show action buttons container
+        const actions = document.getElementById('actions');
+        actions.style.display = 'flex';
+
+        // Setup Download button
+        const downloadBtn = document.getElementById('downloadBtn');
+        downloadBtn.onclick = () => {
+          const blob = new Blob([draftText], { type: 'text/plain' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'legal_draft.txt';
+          a.click();
+          URL.revokeObjectURL(url);
+        };
+
+        // Setup Gmail share link
+        const emailShare = document.getElementById('emailShare');
+const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodeURIComponent("Legal Document Draft")}&body=${encodeURIComponent(draftText)}`;
+emailShare.href = gmailComposeUrl;
+emailShare.target = "_blank";
+emailShare.rel = "noopener noreferrer";
+        // Setup WhatsApp share link
+        const whatsappShare = document.getElementById('whatsappShare');
+        whatsappShare.href = `https://wa.me/?text=${encodeURIComponent(draftText)}`;
+
+      } catch (error) {
+        document.getElementById('result').innerText = 'Error: ' + error.message;
+        document.getElementById('actions').style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>

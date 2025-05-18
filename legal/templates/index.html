@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Legal Agents Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}" />
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+<body class="bg-gradient-to-br from-purple-600 via-pink-500 to-yellow-400 text-white overflow-x-hidden">
+
+  <!-- HEADER -->
+  <header class="p-6 flex justify-between items-center">
+    <h1 class="text-3xl font-bold">🧠 Legal Agents Hub</h1>
+    <nav>
+      <ul class="flex gap-6 text-lg font-medium">
+        <li><a href="#" class="hover:underline">Home</a></li>
+        <li><a href="/agents" class="hover:underline">Agents</a></li>
+
+        <li><a href="#" class="hover:underline">Templates</a></li>
+        <li><a href="#" class="hover:underline">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="text-center mt-10 px-6">
+    <h2 class="text-5xl md:text-6xl font-extrabold leading-tight drop-shadow-lg animate-pulse">
+      Revolutionize Your Legal Workflow
+    </h2>
+    <p class="text-lg mt-4 mb-6 max-w-xl mx-auto text-white/90">
+      Draft, review, and verify all your legal business documents with our intelligent multi-agent legal assistant.
+    </p>
+    <a href="#agents" class="bg-white text-purple-600 px-6 py-3 rounded-full font-bold shadow-lg hover:scale-105 transform transition" onclick="highlightAgents()">
+      Explore Agents
+    </a>
+    <!-- Lottie Animation -->
+  </section>
+
+  <!-- FEATURES SECTION -->
+  <section id="agents" class="mt-20 px-6 grid md:grid-cols-3 gap-10 text-center" style="transition: background 0.5s;">
+    <a href="/draft" class="bg-white/20 backdrop-blur-xl p-6 rounded-3xl shadow-lg block hover:scale-105 transition hover:bg-white/30">
+      <h3 class="text-2xl font-semibold mb-2">📄 Document Drafting Agent</h3>
+      <p class="text-white/90">Create contracts, NDAs, agreements tailored to your needs instantly.</p>
+    </a>    
+    <a href="/verification" class="bg-white/20 backdrop-blur-xl p-6 rounded-3xl shadow-lg block hover:scale-105 transition hover:bg-white/30">
+      <h3 class="text-2xl font-semibold mb-2">✅ Verification Agent</h3>
+      <p class="text-white/90">Verify legal documents and validate formats, signatories, and content.</p>
+    </a>
+    <a href="/filling" class="bg-white/20 backdrop-blur-xl p-6 rounded-3xl shadow-lg block hover:scale-105 transition hover:bg-white/30">
+      <h3 class="text-2xl font-semibold mb-2">📁 Filing & Submission Agent</h3>
+      <p class="text-white/90">Submit forms and documents to official portals automatically.</p>
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="mt-20 p-6 text-center text-white/80">
+    &copy; 2025 Legal Agents Hub. All rights reserved.
+  </footer>
+
+  <script>
+    // Show draft section when "Document Drafting Agent" clicked and scroll to it
+    // NOTE: No element with id 'drafting-agent' in current HTML, so commented out.
+    // document.getElementById('drafting-agent').addEventListener('click', () => {
+    //   const draftSection = document.getElementById('draft');
+    //   draftSection.classList.remove('hidden');
+    //   draftSection.scrollIntoView({ behavior: 'smooth' });
+    // });
+// Smooth scroll and highlight agents section
+function highlightAgents() {
+  const agentsSection = document.getElementById('agents');
+  agentsSection.scrollIntoView({ behavior: 'smooth' });
+  // Temporarily highlight the section
+  agentsSection.style.background = 'rgba(255, 255, 255, 0.1)';
+  setTimeout(() => {
+    agentsSection.style.background = '';
+  }, 2000);
+}
+
+  </script>
+</body>
+</html>

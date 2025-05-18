@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Upload Legal Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 20px auto;
+            cursor: pointer;
+        }
+        button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .note {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Legal Document for Verification</h1>
+        <form action="/verify-document/" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".txt" required />
+            <button type="submit">Verify Document</button>
+        </form>
+        <p class="note">Please upload a plain text (.txt) legal document only.</p>
+    </div>
+</body>
+</html>
